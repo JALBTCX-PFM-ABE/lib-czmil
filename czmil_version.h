@@ -38,7 +38,7 @@
 
 #ifndef CZMIL_VERSION
 
-#define     CZMIL_VERSION     "PFM Software - CZMIL library V3.16 - 08/18/19"
+#define     CZMIL_VERSION     "PFM Software - CZMIL library V3.17 - 08/28/19"
 
 #endif
 
@@ -477,5 +477,12 @@
     Jan Depner (PFM Software)
 
     - Modified the CZMIL_URBAN_? flags to include a "soft hit" flag for channels with 5 or more valid returns.
+
+
+    Version 3.17
+    08/28/19
+    Jan Depner (PFM Software)
+
+    - I wasn't populating creation_software for CPF, CSF, and CWF on read.  DOH!
 
 </pre>*/

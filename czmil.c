@@ -500,6 +500,7 @@ static int32_t czmil_read_cwf_header (int32_t hnd)
           if (strstr (varin, N_("[FILE TYPE]"))) strcpy (cwf[hnd].header.file_type, info);
 
           if (strstr (varin, N_("[CREATION TIMESTAMP]"))) sscanf (info, "%"PRIu64, &cwf[hnd].header.creation_timestamp);
+          if (strstr (varin, N_("[CREATION SOFTWARE]"))) strcpy (cwf[hnd].header.creation_software, info);
           if (strstr (varin, N_("[MODIFICATION TIMESTAMP]"))) sscanf (info, "%"PRIu64, &cwf[hnd].header.modification_timestamp);
 
 
@@ -1053,6 +1054,7 @@ static int32_t czmil_read_cpf_header (int32_t hnd)
           if (strstr (varin, N_("[FILE TYPE]"))) strcpy (cpf[hnd].header.file_type, info);
 
           if (strstr (varin, N_("[CREATION TIMESTAMP]"))) sscanf (info, "%"PRIu64, &cpf[hnd].header.creation_timestamp);
+          if (strstr (varin, N_("[CREATION SOFTWARE]"))) sscanf (info, "%s", cpf[hnd].header.creation_software);
           if (strstr (varin, N_("[MODIFICATION TIMESTAMP]"))) sscanf (info, "%"PRIu64, &cpf[hnd].header.modification_timestamp);
 
 
@@ -1373,7 +1375,7 @@ static int32_t czmil_write_csf_header (int32_t hnd)
 
 
   if (strlen (csf[hnd].header.creation_software) > 2) fprintf (csf[hnd].fp, N_("[CREATION SOFTWARE] = %s\n"),
-                                                                     csf[hnd].header.creation_software);
+                                                               csf[hnd].header.creation_software);
 
   czmil_cvtime (csf[hnd].header.modification_timestamp, &year, &jday, &hour, &minute, &second);
   czmil_jday2mday (year, jday, &month, &day);
@@ -1643,6 +1645,7 @@ static int32_t czmil_read_csf_header (int32_t hnd)
           if (strstr (varin, N_("[FILE TYPE]"))) strcpy (csf[hnd].header.file_type, info);
 
           if (strstr (varin, N_("[CREATION TIMESTAMP]"))) sscanf (info, "%"PRIu64, &csf[hnd].header.creation_timestamp);
+          if (strstr (varin, N_("[CREATION SOFTWARE]"))) strcpy (csf[hnd].header.creation_software, info);
           if (strstr (varin, N_("[MODIFICATION TIMESTAMP]"))) sscanf (info, "%"PRIu64, &csf[hnd].header.modification_timestamp);
 
 
@@ -8594,7 +8597,6 @@ CZMIL_DLL int32_t czmil_write_cpf_record (int32_t hnd, int32_t recnum, CZMIL_CPF
 
           if (size != cif_record.cpf_buffer_size)
             {
-          fprintf(stderr,"%s %s %d %d %d\n",__FILE__,__FUNCTION__,__LINE__,size,cif_record.cpf_buffer_size);
               sprintf (czmil_error.info, _("File : %s\nRecord : %d\nBuffer sizes from the CIF and CPF files do not match.\n"), cpf[hnd].path, recnum);
               return (czmil_error.czmil = CZMIL_CPF_CIF_BUFFER_SIZE_ERROR);
             }
@@ -9971,7 +9973,6 @@ CZMIL_DLL int32_t czmil_update_cpf_return_status (int32_t hnd, int32_t recnum, C
 
       if (size != cif_record.cpf_buffer_size)
         {
-          fprintf(stderr,"%s %s %d %d %d\n",__FILE__,__FUNCTION__,__LINE__,size,cif_record.cpf_buffer_size);
           sprintf (czmil_error.info, _("File : %s\nRecord : %d\nBuffer sizes from the CIF and CPF files do not match.\n"), cpf[hnd].path, recnum);
           return (czmil_error.czmil = CZMIL_CPF_CIF_BUFFER_SIZE_ERROR);
         }
