@@ -1,0 +1,55 @@
+## -*- Makefile -*-
+##
+## User: Russ.Johnson
+## Time: Dec 21, 2020 2:16:49 PM
+## Makefile created by Oracle Developer Studio.
+##
+## This file is generated automatically.
+##
+
+
+#### Compiler and tool definitions shared by all build targets #####
+CC = gcc
+BASICOPTS = -m64
+CFLAGS = $(BASICOPTS)
+
+
+# Define the target directories.
+TARGETDIR_libCZMIL.a=library
+
+
+all: $(TARGETDIR_libCZMIL.a)/libCZMIL.a
+
+## Target: libCZMIL.a
+OBJS_libCZMIL.a =  \
+	$(TARGETDIR_libCZMIL.a)/czmil.o
+
+
+# Link or archive
+$(TARGETDIR_libCZMIL.a)/libCZMIL.a: $(TARGETDIR_libCZMIL.a) $(OBJS_libCZMIL.a)
+	$(AR) $(ARFLAGS) $@ $(OBJS_libCZMIL.a)
+
+
+# Compile source files into .o files
+$(TARGETDIR_libCZMIL.a)/czmil.o: $(TARGETDIR_libCZMIL.a) czmil.c
+	$(COMPILE.c) $(CFLAGS_libCZMIL.a) $(CPPFLAGS_libCZMIL.a) -o $@ czmil.c
+
+
+
+#### Clean target deletes all generated files ####
+clean:
+	rm -f \
+		$(TARGETDIR_libCZMIL.a)/libCZMIL.a \
+		$(TARGETDIR_libCZMIL.a)/czmil.o
+	rm -f -r $(TARGETDIR_libCZMIL.a)
+
+
+# Create the target directory (if needed)
+$(TARGETDIR_libCZMIL.a):
+	mkdir -p $(TARGETDIR_libCZMIL.a)
+
+
+# Enable dependency checking
+.KEEP_STATE:
+.KEEP_STATE_FILE:.make.state.GNU-amd64-Windows
+
